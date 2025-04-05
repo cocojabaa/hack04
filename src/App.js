@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 
-const STEP = 6;
+const STEP = 2;
 const DELAY = 10; // ms
 const DIRECTIONS = {
   left_top: {
@@ -156,7 +156,7 @@ function App() {
         <br />
         Такая-то
       </div>
-      <div className={"help-text"}>Нажми SPACE</div>
+      {/*<div className={"help-text"}>Нажми SPACE</div>*/}
     </div>
   );
 }
