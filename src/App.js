@@ -20,6 +20,18 @@ const DIRECTIONS = {
     y: STEP,
   },
 };
+const COLORS = [
+  "#504985",
+  "#ff5b22",
+  "#d644ce",
+  "#8130bf",
+  "#ff829b",
+  "#45a359",
+  "#577c9d",
+  "#75bcc2",
+  "#fb5928",
+  "#f4d470",
+];
 
 function App() {
   const [isMoving, setIsMoving] = useState(false);
@@ -29,17 +41,14 @@ function App() {
   const currentDirectionRef = useRef(currentDirection);
   const intervalIdRef = useRef(null);
   const textElRef = useRef(null);
+  const [textColor, setTextColor] = useState("#131313");
   const getWidth = () => window.innerWidth;
   const getHeight = () => window.innerHeight;
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const positionRef = useRef(position);
   const isDirectionsEquel = (a, b) => a.x === b.x && a.y === b.y;
-
-  useEffect(() => {
-    positionRef.current = position;
-    currentDirectionRef.current = currentDirection;
-  }, [position, currentDirection]);
-
+  const setRandomColor = () =>
+    setTextColor(COLORS[Math.floor(Math.random() * COLORS.length)]);
   const intervalCallback = () => {
     if (
       isDirectionsEquel(currentDirectionRef.current, DIRECTIONS["right_top"]) &&
@@ -131,6 +140,15 @@ function App() {
   };
 
   useEffect(() => {
+    positionRef.current = position;
+  }, [position]);
+
+  useEffect(() => {
+    currentDirectionRef.current = currentDirection;
+    setRandomColor();
+  }, [currentDirection]);
+
+  useEffect(() => {
     document.addEventListener("keydown", handleKeyDown);
     setPosition({
       x: getWidth() / 2 - textElRef.current.clientWidth / 2,
@@ -150,6 +168,7 @@ function App() {
         style={{
           left: `${position.x}px`,
           top: `${position.y}px`,
+          color: textColor,
         }}
       >
         Такая-то
