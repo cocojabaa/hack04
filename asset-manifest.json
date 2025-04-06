@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/hack04/static/css/main.2fe3efea.css",
-    "main.js": "/hack04/static/js/main.6de9f69d.js",
+    "main.js": "/hack04/static/js/main.3c31ed73.js",
     "static/media/Montserrat.ttf": "/hack04/static/media/Montserrat.4df14eb5e72bf55c4497.ttf",
     "index.html": "/hack04/index.html",
     "main.2fe3efea.css.map": "/hack04/static/css/main.2fe3efea.css.map",
-    "main.6de9f69d.js.map": "/hack04/static/js/main.6de9f69d.js.map"
+    "main.3c31ed73.js.map": "/hack04/static/js/main.3c31ed73.js.map"
   },
   "entrypoints": [
     "static/css/main.2fe3efea.css",
-    "static/js/main.6de9f69d.js"
+    "static/js/main.3c31ed73.js"
   ]
 }
