@@ -25,12 +25,12 @@ const COLORS = [
   "#ff5b22",
   "#d644ce",
   "#8130bf",
-  "#ff829b",
+  "#ff3a61",
   "#45a359",
   "#577c9d",
-  "#75bcc2",
+  "#56d5e0",
   "#fb5928",
-  "#f4d470",
+  "#f1ca51",
 ];
 
 function App() {
@@ -38,6 +38,7 @@ function App() {
   const [currentDirection, setCurrentDirection] = useState(
     DIRECTIONS["right_top"],
   );
+  const isDirtyRef = useRef(true);
   const currentDirectionRef = useRef(currentDirection);
   const intervalIdRef = useRef(null);
   const textElRef = useRef(null);
@@ -125,8 +126,13 @@ function App() {
   };
 
   const handleKeyDown = (event) => {
-    if (event.code === "Space") {
+    if (
+      event.type === "pointerdown" || // Мышь/касание (PointerEvent)
+      event.code === "Space" || // Клавиатура
+      event.type === "touchstart"
+    ) {
       event.preventDefault();
+      if (isDirtyRef.current) isDirtyRef.current = false;
       setIsMoving((prev) => {
         const newState = !prev;
         if (newState) {
@@ -150,12 +156,14 @@ function App() {
 
   useEffect(() => {
     document.addEventListener("keydown", handleKeyDown);
+    document.addEventListener("pointerdown", handleKeyDown);
     setPosition({
       x: getWidth() / 2 - textElRef.current.clientWidth / 2,
       y: getHeight() / 2 - textElRef.current.clientHeight / 2,
     });
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
+      document.removeEventListener("pointerdown", handleKeyDown);
       stopInterval();
     };
   }, []);
@@ -175,7 +183,7 @@ function App() {
         <br />
         Такая-то
       </div>
-      {/*<div className={"help-text"}>Нажми SPACE</div>*/}
+      {isDirtyRef.current && <div className={"help-text"}>Клик!</div>}
     </div>
   );
 }
