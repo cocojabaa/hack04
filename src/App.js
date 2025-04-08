@@ -1,7 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 
-const STEP = 2;
-const DELAY = 10; // ms
+const STEP = 2; // px
+const PADDING = 5; // px
+const DELAY = 6; // ms
 const DIRECTIONS = {
   left_top: {
     x: -STEP,
@@ -42,11 +43,11 @@ function App() {
   const currentDirectionRef = useRef(currentDirection);
   const intervalIdRef = useRef(null);
   const textElRef = useRef(null);
+  const positionRef = useRef();
   const [textColor, setTextColor] = useState("#131313");
   const getWidth = () => window.innerWidth;
-  const getHeight = () => window.innerHeight;
   const [position, setPosition] = useState({ x: 0, y: 0 });
-  const positionRef = useRef(position);
+  const getHeight = () => window.innerHeight;
   const isDirectionsEquel = (a, b) => a.x === b.x && a.y === b.y;
   const setRandomColor = () =>
     setTextColor(COLORS[Math.floor(Math.random() * COLORS.length)]);
@@ -63,7 +64,8 @@ function App() {
       setCurrentDirection((prev) => DIRECTIONS["left_bottom"]);
     } else if (
       isDirectionsEquel(currentDirectionRef.current, DIRECTIONS["right_top"]) &&
-      positionRef.current.x + textElRef.current.clientWidth + 10 >= getWidth() // правая сторона | право верх
+      positionRef.current.x + textElRef.current.clientWidth + PADDING >=
+        getWidth() // правая сторона | право верх
     ) {
       setCurrentDirection((prev) => DIRECTIONS["left_top"]);
     } else if (
@@ -71,7 +73,8 @@ function App() {
         currentDirectionRef.current,
         DIRECTIONS["right_bottom"],
       ) &&
-      positionRef.current.x + textElRef.current.clientWidth + 10 >= getWidth() // правая сторона | право низ
+      positionRef.current.x + textElRef.current.clientWidth + PADDING >=
+        getWidth() // правая сторона | право низ
     ) {
       setCurrentDirection((prev) => DIRECTIONS["left_bottom"]);
     } else if (
@@ -79,7 +82,8 @@ function App() {
         currentDirectionRef.current,
         DIRECTIONS["left_bottom"],
       ) &&
-      positionRef.current.y + textElRef.current.clientHeight + 10 >= getHeight() // пол | лево низ
+      positionRef.current.y + textElRef.current.clientHeight + PADDING >=
+        getHeight() // пол | лево низ
     ) {
       setCurrentDirection((prev) => DIRECTIONS["left_top"]);
     } else if (
@@ -87,7 +91,8 @@ function App() {
         currentDirectionRef.current,
         DIRECTIONS["right_bottom"],
       ) &&
-      positionRef.current.y + textElRef.current.clientHeight + 10 >= getHeight() // пол | право низ
+      positionRef.current.y + textElRef.current.clientHeight + PADDING >=
+        getHeight() // пол | право низ
     ) {
       setCurrentDirection((prev) => DIRECTIONS["right_top"]);
     } else if (
@@ -127,9 +132,9 @@ function App() {
 
   const handleKeyDown = (event) => {
     if (
-      event.type === "pointerdown" || // Мышь/касание (PointerEvent)
+      event.type === "pointerdown" || // Мышь
       event.code === "Space" || // Клавиатура
-      event.type === "touchstart"
+      event.type === "touchstart" // Касание
     ) {
       event.preventDefault();
       if (isDirtyRef.current) isDirtyRef.current = false;
