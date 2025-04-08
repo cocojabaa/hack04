@@ -44,32 +44,34 @@ function App() {
   const intervalIdRef = useRef(null);
   const textElRef = useRef(null);
   const positionRef = useRef();
+
   const [textColor, setTextColor] = useState("#131313");
-  const getWidth = () => window.innerWidth;
   const [position, setPosition] = useState({ x: 0, y: 0 });
+
+  const getWidth = () => window.innerWidth;
   const getHeight = () => window.innerHeight;
-  const isDirectionsEquel = (a, b) => a.x === b.x && a.y === b.y;
+  const isDirectionsEqual = (a, b) => a.x === b.x && a.y === b.y;
   const setRandomColor = () =>
     setTextColor(COLORS[Math.floor(Math.random() * COLORS.length)]);
   const intervalCallback = () => {
     if (
-      isDirectionsEquel(currentDirectionRef.current, DIRECTIONS["right_top"]) &&
+      isDirectionsEqual(currentDirectionRef.current, DIRECTIONS["right_top"]) &&
       positionRef.current.y < 0 // потолок | право верх
     ) {
       setCurrentDirection((prev) => DIRECTIONS["right_bottom"]);
     } else if (
-      isDirectionsEquel(currentDirectionRef.current, DIRECTIONS["left_top"]) &&
+      isDirectionsEqual(currentDirectionRef.current, DIRECTIONS["left_top"]) &&
       positionRef.current.y < 0 // потолок | лево верх
     ) {
       setCurrentDirection((prev) => DIRECTIONS["left_bottom"]);
     } else if (
-      isDirectionsEquel(currentDirectionRef.current, DIRECTIONS["right_top"]) &&
+      isDirectionsEqual(currentDirectionRef.current, DIRECTIONS["right_top"]) &&
       positionRef.current.x + textElRef.current.clientWidth + PADDING >=
         getWidth() // правая сторона | право верх
     ) {
       setCurrentDirection((prev) => DIRECTIONS["left_top"]);
     } else if (
-      isDirectionsEquel(
+      isDirectionsEqual(
         currentDirectionRef.current,
         DIRECTIONS["right_bottom"],
       ) &&
@@ -78,7 +80,7 @@ function App() {
     ) {
       setCurrentDirection((prev) => DIRECTIONS["left_bottom"]);
     } else if (
-      isDirectionsEquel(
+      isDirectionsEqual(
         currentDirectionRef.current,
         DIRECTIONS["left_bottom"],
       ) &&
@@ -87,7 +89,7 @@ function App() {
     ) {
       setCurrentDirection((prev) => DIRECTIONS["left_top"]);
     } else if (
-      isDirectionsEquel(
+      isDirectionsEqual(
         currentDirectionRef.current,
         DIRECTIONS["right_bottom"],
       ) &&
@@ -96,12 +98,12 @@ function App() {
     ) {
       setCurrentDirection((prev) => DIRECTIONS["right_top"]);
     } else if (
-      isDirectionsEquel(currentDirectionRef.current, DIRECTIONS["left_top"]) &&
+      isDirectionsEqual(currentDirectionRef.current, DIRECTIONS["left_top"]) &&
       positionRef.current.x < 0 // левая сторона | лево верх
     ) {
       setCurrentDirection((prev) => DIRECTIONS["right_top"]);
     } else if (
-      isDirectionsEquel(
+      isDirectionsEqual(
         currentDirectionRef.current,
         DIRECTIONS["left_bottom"],
       ) &&
